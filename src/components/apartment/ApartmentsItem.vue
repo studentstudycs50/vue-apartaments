@@ -1,5 +1,5 @@
 <template>
-    <div class="apartments-item">
+    <div class="apartments-item" @click="log">
         <div class="apartments-item__inner">
             <img :src="imgSrc" alt="" class="apartments-item__photo"/>
             <div class="apartments-item__content">
@@ -8,6 +8,7 @@
                     <StarRating :rating="rating" />
                 </div>
                 <div class="apartments-item__price">UAH {{ price }}</div>
+                <router-link :to="{ name: 'apartment', params: { id } }" class="apartments-item__link"></router-link>
             </div>
         </div>
     </div>
@@ -23,6 +24,10 @@ import StarRating from "../StarRating"
             StarRating
         },
         props: {
+            id: {
+                type: String,
+                required: true
+            },
             descr: {
                 type: String,
                 default: ''
@@ -39,6 +44,11 @@ import StarRating from "../StarRating"
                 type: String,
                 default: ''
             }
+        },
+        methods: {
+            log() {
+                console.log('clicked');
+            }
         }
     }
 </script>
@@ -46,10 +56,9 @@ import StarRating from "../StarRating"
 <style lang="scss" scoped>
 .apartments-item {
     margin-bottom: 30px;
-    max-width: 350px;
     padding: 0 15px;
     position: relative;
-
+    width: 33.333%;
     &__inner {
         position: relative;
     }
@@ -91,6 +100,14 @@ import StarRating from "../StarRating"
         height: 100%;
         left: 0;
         object-fit: cover;
+        position: absolute;
+        top: 0;
+        width: 100%;
+    }
+
+    &__link {
+        height: 100%;
+        left: 0;
         position: absolute;
         top: 0;
         width: 100%;

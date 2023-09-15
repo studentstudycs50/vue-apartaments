@@ -21,8 +21,9 @@
 </script>
 
 <style lang="scss" scoped>
+@import '../assets/scss/variables.scss';
 .btn {
-    background-color: #ff662d;
+    background-color: $main-color;
     border: 1px solid transparent;
     color: #fff;
     cursor: pointer;
@@ -33,8 +34,8 @@
 
     &--outlined {
         background-color: #fff;
-        border: 1px solid #ff662d;
-        color: #ff662d;
+        border: 1px solid $main-color;
+        color: $main-color;
     }
 }
 </style>

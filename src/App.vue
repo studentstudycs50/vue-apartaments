@@ -1,49 +1,38 @@
 <template>
-  <div :id="$style.app">
-    <ApartmentsList :items="apartaments" />
+  <div id="app">
+    <div class="content">
+      <Header />
+    <router-view></router-view>
+    </div>
+    <Footer />
   </div>
 </template>
 
 <script>
-
-import ApartmentsList from './components/apartment/ApartmentsList.vue';
-import apartaments from './components/apartment/apartaments';
+import Footer from './components/Footer.vue';
+import Header from './components/Header.vue';
 
 export default {
   name: 'App',
   components: {
-    ApartmentsList
-},
-  data() {
-    return {
-      apartaments,
-      apartments: {
-        id: 'mlmlkmkml8239904',
-        title: 'Lommkmkmk lkmkm lkm;l mkpo',
-        description: 'Lommkmkmk lkmkm lkm;l mkpo Lommkmkmk lkmkm lkm;l mkpo Lommkmkmk lkmkm lkm;l mkpo',
-        price: 2032,
-        rating: 4.7,
-        location: {
-          city: 'Kharkiv'
-        },
-        owner: {
-          name: 'Svitlana',
-          phone: '123-123-1233',
-          email: 'mklmk@gmail.com',
-        }
-      }
-    }
-  }
+    Header,
+    Footer
+}
 }
 </script>
 
-<style module>
+<style lang="scss" scoped>
 #app {
+  display: flex;
   font-family: Montserrat, Helvetica, Arial, sans-serif;
+  flex-direction: column;
+  min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+}
+
+.content {
+  flex-grow: 1;
+  padding-top: 120px;
 }
 </style>
