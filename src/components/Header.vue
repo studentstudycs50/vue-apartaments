@@ -1,7 +1,9 @@
 <template>
     <header class="header">
         <Container>
-            <Logo/>
+            <router-link to="/">
+                <Logo/>
+            </router-link>
         </Container>
     </header>
 </template>
@@ -27,5 +29,6 @@ import Container from './shared/Container.vue';
     position: absolute;
     top: 0;
     width: 100%;
+    z-index: 100;
 }
 </style>

@@ -1,12 +1,18 @@
 <template>
     <section class="error">
-        <h1 class="error__title">404 Not Found! Please try again!</h1>
+        <SectionWithHeaderSpacer>
+            <h1 class="error__title">404 Not Found! Please try again!</h1>
+        </SectionWithHeaderSpacer>
     </section>
 </template>
 
 <script>
+  import SectionWithHeaderSpacer from '../components/shared/SectionWithHeaderSpacer.vue';
     export default {
-        name: 'ErrorPage'
+        name: 'ErrorPage',
+        components: {
+            SectionWithHeaderSpacer
+        }
     }
 </script>
 

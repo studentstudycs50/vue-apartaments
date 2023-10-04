@@ -8,6 +8,9 @@
         <CustomInput 
         v-model="price"
         placeholder="Price, from"
+        error-message="Please add information"
+        :rules="rules"
+        type="number"
         />
         <Button 
         class="form__submit"
@@ -20,6 +23,7 @@
 import CustomInput from '../shared/CustomInput.vue';
 import CustomSelect from '../shared/CustomSelect.vue';
 import Button from '../Button.vue';
+import { isRequired, charLimit } from '@/utils/validationRules';
 
     export default {
         name: 'ApartmentFilterForm',
@@ -35,6 +39,9 @@ import Button from '../Button.vue';
             }
         },
         computed: {
+            rules() {
+                return [ isRequired, charLimit(10) ]
+            },
             cities() {
                 return [{ value: '', label: 'City', selected: true }, 'Kiev', 'Odesa', 'Poltava', 'Kharkiv', 'Dnipro', 'Lviv', 'Kherson', 'Mariupol']
             }

@@ -1,12 +1,24 @@
 <template>
-    <button v-on="$listeners" v-bind:type="type" :class="{ btn: true, 'btn--outlined': outlined }">
-        <slot></slot>
+    <button 
+        v-on="$listeners" 
+        v-bind:type="type" 
+        :disabled="loading"
+        :class="{ btn: true, 'btn--outlined': outlined }"
+        >
+        <CircleLoader v-if="loading" width="35" height="35" class="btn__loader" />
+        <span class="btn__content" :class="contentStyle">
+            <slot></slot>
+        </span>
     </button>
 </template>
 
 <script>
+    import  CircleLoader from './loaders/CircleLoader.vue';
     export default {
         name: 'Button',
+        components: {
+            CircleLoader
+        },
         props: {
             type: {
                 type: String,
@@ -15,6 +27,17 @@
             outlined: {
                 type: Boolean,
                 default: false
+            },
+            loading: {
+                type: Boolean,
+                default: false
+            }
+        },
+        computed: {
+            contentStyle() {
+                return {
+                    'btn__content--hidden': this.loading
+                }
             }
         }
     }
@@ -31,11 +54,26 @@
     font-size: 18px;
     min-width: 220px;
     padding: 8px 15px;
+    position: relative;
 
     &--outlined {
         background-color: #fff;
         border: 1px solid $main-color;
         color: $main-color;
+    }
+
+    &__content {
+        &--hidden {
+            opacity: 0;
+        }
+    }
+
+    &__loader {
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
     }
 }
 </style>

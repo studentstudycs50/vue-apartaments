@@ -1,12 +1,13 @@
 <template>
-    <main class="homePage">
-            <Container>
-          <ApartmentFilterForm 
+  <main class="homePage">
+    <SectionWithHeaderSpacer>
+      <Container>
+        <ApartmentFilterForm 
           class="apartments-filter"
           @submit="filter"
           />
-        </Container>
-        <Container>
+      </Container>
+      <Container>
         <p v-if="!filteredApartments.length">Nothing</p>
         <ApartmentsList v-else :items="filteredApartments">
           <template v-slot:apartment="{ apartment }">
@@ -21,16 +22,18 @@
           </template>
         </ApartmentsList>
       </Container>
-        </main>
-  </template>
+    </SectionWithHeaderSpacer>
+  </main>
+</template>
   
   <script>
   
   import ApartmentsList from '../components/apartment/ApartmentsList.vue';
-  import apartments from '../components/apartment/apartments';
   import ApartmentsItem from '../components/apartment/ApartmentsItem.vue';
   import ApartmentFilterForm from '../components/apartment/ApartmentFilterForm.vue';
   import Container from '../components/shared/Container.vue';
+  import { getApartmentsList } from '../services/apartmens.service';
+  import SectionWithHeaderSpacer from '../components/shared/SectionWithHeaderSpacer.vue';
   
   export default {
     name: 'App',
@@ -38,12 +41,13 @@
       Container,
       ApartmentsList,
       ApartmentsItem,
-      ApartmentFilterForm
+      ApartmentFilterForm,
+      SectionWithHeaderSpacer
   },
     data() {
       return {
         text: '',
-        apartments,
+        apartments: [],
         filters: {
           city: '',
           price: 0
@@ -53,6 +57,14 @@
     computed: {
       filteredApartments() {
         return this.filterByCityName(this.filterByPrice(this.apartments))
+      }
+    },
+    async created() {
+      try {
+        const { data } = await getApartmentsList()
+        this.apartments = data
+      } catch (error) {
+        console.log(error);
       }
     },
     methods: {

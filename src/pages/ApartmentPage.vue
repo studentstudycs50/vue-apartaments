@@ -1,0 +1,77 @@
+<template>
+    <main class="apartment-page">
+        <SectionWithHeaderSpacer>
+            <Container>
+                <div v-if="apartment" class="apartment-page__content">
+                    <ApartmentsMainInfo :apartment="apartment"/>
+                    <div class="apartment-page__additional-info">
+                        <ApartmentsOwner :owner="apartment.owner"/>
+                        <Reviews :reviews="reviewsList" />
+                    </div>
+                </div>
+            </Container>
+        </SectionWithHeaderSpacer>
+    </main>
+</template>
+
+<script>
+  import Container from '../components/shared/Container.vue';
+  import ApartmentsMainInfo from '../components/apartment/ApartmentsMainInfo.vue';
+  import ApartmentsOwner from '../components/apartment/ApartmentsOwner.vue';
+  import Reviews from '../components/reviews/Reviews.vue';
+  import reviewsList from '../components/reviews/reviews.json';
+  import { getApartmentsById } from '@/services/apartmens.service';
+  import SectionWithHeaderSpacer from '../components/shared/SectionWithHeaderSpacer.vue';
+
+    export default {
+        name: 'ApartmentPage',
+        components: {
+            Container,
+            ApartmentsMainInfo,
+            ApartmentsOwner,
+            Reviews,
+            SectionWithHeaderSpacer
+        },
+        data() {
+            return {
+                apartment: null
+            }
+        },
+        computed: {
+            reviewsList(){
+                return reviewsList
+            }
+        },
+        mounted() {
+            console.log(this.apartment);
+        },
+        async created() {
+            try {
+                const { id } = this.$route.params;
+                const { data } = await getApartmentsById(id);
+                this.apartment = data
+
+            } catch (error) {
+                console.log(error)
+            }
+        }
+    }
+</script>
+
+<style lang="scss" scoped>
+.apartment-page {
+    padding-bottom: 55px;
+
+    &__content {
+        align-items: flex-start;
+        display: flex;
+    }
+
+    &__additional-info {
+    flex-grow: 0;
+    flex-shrink: 1;
+    margin-left: 30px;
+    max-width: 350px;
+  }
+}
+</style>
