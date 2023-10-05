@@ -6,21 +6,59 @@
         </div>
         <img :src="apartment.imgUrl" :alt="apartment.title" class="apartment-main-info__photo">
         <p class="apartment-main-info__description">{{ apartment.descr }}</p>
+        <div class="apartment-main-info__btn">
+            <Button @click="handleApartmentsBooking"
+            :loading="isLoading">Booking</Button>
+        </div>
     </article>
 </template>
 
 <script>
 import StarRating from '../StarRating.vue';
+import Button from '../Button.vue';
+import { bookApartment } from '../../services/orders.service';
 
     export default {
         name: 'ApartmentsMainInfo',
         components: {
-            StarRating
+            StarRating,
+            Button
         },
         props: {
             apartment: {
                 type: Object,
                 required: true,
+            }
+        },
+        data() {
+            return {
+                isLoading: false
+            }
+        },
+        methods: {
+            async handleApartmentsBooking() {
+                const body = {
+                    apartmentId: this.$route.params.id,
+                    date: Date.now()
+                }
+
+                try {
+                    this.isLoading = true;
+
+                    await bookApartment(body);
+                    this.$notify({
+                        type: 'success',
+                        title: 'Your order added'
+                    })
+                } catch(error) {
+                    this.$notify({
+                        type: 'Error',
+                        title: 'Error happened',
+                        text: error.message
+                    })
+                } finally {
+                    this.isLoading = false;
+                }
             }
         }
     }
@@ -48,5 +86,10 @@ import StarRating from '../StarRating.vue';
         line-height: 1.3;
         margin-top: 30px;
     }
+
+   &__btn {
+       margin-top: 20px;
+       text-align: center;
+   }
 }
 </style>

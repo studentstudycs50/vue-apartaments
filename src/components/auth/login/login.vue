@@ -1,6 +1,6 @@
 <template>
     <AuthContainer class="login">
-        <MainTitle class="login__title">Log in</MainTitle>
+        <MainTitle class="login__title">Login</MainTitle>
         <Form ref="form" class="login__form" @submit.prevent="handleSubmit">
             <CustomInput 
                 autocomplete="email"

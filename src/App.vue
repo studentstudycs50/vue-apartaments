@@ -11,7 +11,7 @@
 
 <script>
 import Footer from './components/Footer.vue';
-import Header from './components/Header.vue';
+import Header from './components/header/Header.vue';
 import Notifications from './components/notifications/notifications.vue';
 
 export default {
@@ -20,7 +20,7 @@ export default {
     Header,
     Footer,
     Notifications
-  }
+  },
 }
 </script>
 

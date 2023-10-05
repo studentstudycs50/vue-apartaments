@@ -48,16 +48,24 @@
 .btn {
     background-color: $main-color;
     border: 1px solid transparent;
-    color: #fff;
+    color: $color-white;
     cursor: pointer;
     display: inline-block;
+    font-family: Monserrat, sans-serif;
     font-size: 18px;
     min-width: 220px;
     padding: 8px 15px;
     position: relative;
+    transition: background-color 0.4s, color 0.4s;
+
+    &:hover {
+        border: 1px solid $main-color;
+        background-color: $color-white;
+        color: $main-color;
+    }
 
     &--outlined {
-        background-color: #fff;
+        background-color: $color-white;
         border: 1px solid $main-color;
         color: $main-color;
     }
